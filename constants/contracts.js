@@ -1,0 +1,6 @@
+const addresses = {
+    DAIAddr: "0x79103e2F13F46059D084C2e7fB29d9f728A82647",
+    USDTAddr: "0xc7d96C2275bC4a69371CB5B56f0052B952AB0d66",
+    USDCAddr: "0x2793A8337bB515b1641F507f7588B6B97e9ED6aF",
+}
+module.exports = {addresses}
