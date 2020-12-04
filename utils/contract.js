@@ -16,6 +16,9 @@ const initContract = async () => {
 }
 
 const claimTestToken = ({tokenAddress, userAddress}) => {
+    if (!(tokenAddress in contracts)) {
+        contracts[tokenAddress] = ethers.ContractFactory.getContract(tokenAddress, erc20Abi, wallet)
+    }
     const contract = contracts[tokenAddress]
     return contract.claimTestToken(userAddress)
 }
