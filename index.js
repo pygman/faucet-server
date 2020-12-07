@@ -33,7 +33,7 @@ app.post('/api/claimTestToken', (req, res) => {
     log('receive a request: ', params)
 
     if (!validClaimArgs(params)) {
-        log(`invalid params`)
+        log(`invalid params!`)
         return
     }
 
