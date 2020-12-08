@@ -9,10 +9,9 @@ const contracts = {}
 const initContract = async () => {
     provider = await ethers.getDefaultProvider(process.env.ROPSTEN_API);
     wallet = new ethers.Wallet(process.env.ROPSTEN_DEPLOYER_PRIVATE_KEY, provider)
-    Object.keys(addresses).map(function(key, index) {
-        const address = addresses[key]
-        contracts[address] = ethers.ContractFactory.getContract(address, erc20Abi, wallet)
-    });
+    Object.entries(addresses).forEach(([tokenName, tokenAddress]) => {
+        contracts[tokenAddress] = ethers.ContractFactory.getContract(tokenAddress, erc20Abi, wallet)
+    })
 }
 
 const claimTestToken = ({tokenAddress, userAddress}) => {
