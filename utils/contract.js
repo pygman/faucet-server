@@ -7,8 +7,8 @@ let provider, wallet
 const contracts = {}
 
 const initContract = async () => {
-    provider = await ethers.getDefaultProvider(process.env.ROPSTEN_API);
-    wallet = new ethers.Wallet(process.env.ROPSTEN_DEPLOYER_PRIVATE_KEY, provider)
+    provider = await ethers.getDefaultProvider(process.env.RINKEBY_API);
+    wallet = new ethers.Wallet(process.env.RINKEBY_DEPLOYER_PRIVATE_KEY, provider)
     Object.entries(addresses).forEach(([tokenName, tokenAddress]) => {
         contracts[tokenAddress] = ethers.ContractFactory.getContract(tokenAddress, erc20Abi, wallet)
     })
