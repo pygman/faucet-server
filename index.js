@@ -1,9 +1,11 @@
+const {program} = require('commander');
 const express = require('express')
 const path = require('path')
 const cors = require('cors')
 const bodyParser = require('body-parser');
 const {initContract, claimTestToken} = require('./utils/contract')
 const {validClaimArgs} = require('./utils/address')
+const fs = require("fs");
 const log = console.log.bind(console)
 const port = 3089
 const app = express()
@@ -30,6 +32,13 @@ app.get('/', (req, res) => {
     res.sendFile(path.join('index.html'));
 })
 
+app.get('/tokens', (req, res) => {
+    log('receive a request get /tokens: ')
+    res.json({
+        tokens: allTokens
+    });
+})
+
 app.post('/api/claimTestToken', (req, res) => {
     const params = req.body
     log('receive a request: ', params)
@@ -49,9 +58,18 @@ app.post('/api/claimTestToken', (req, res) => {
     )
 })
 
+const defaultConfig = './config.json';
+
+let allTokens = [];
 
 const main = async () => {
-    await initContract()
+    const {config} = program
+        .option('-c, --config <config>', 'config path', defaultConfig)
+        .parse(process.argv)
+        .opts()
+    const { tokens } = JSON.parse(fs.readFileSync(config).toString());
+    await initContract(tokens)
+    allTokens = Object.assign(tokens, []);
 
     app.listen(port, () => {
         log(`Faucet server listening at http://localhost:${port}`)
