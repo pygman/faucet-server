@@ -6,8 +6,8 @@ let provider, wallet
 const contracts = {}
 
 const initContract = async (tokens) => {
-    provider = await ethers.getDefaultProvider(process.env.RINKEBY_API);
-    wallet = new ethers.Wallet(process.env.RINKEBY_DEPLOYER_PRIVATE_KEY, provider)
+    provider = await ethers.getDefaultProvider(process.env.GOERLI_API);
+    wallet = new ethers.Wallet(process.env.GOERLI_DEPLOYER_PRIVATE_KEY, provider)
     tokens.map((token) => {
         contracts[token.address] = ethers.ContractFactory.getContract(token.address, erc20Abi, wallet)
     })
